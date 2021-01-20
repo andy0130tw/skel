@@ -1,0 +1,71 @@
+" If no screen, use color term
+if ($TERM == "vt100")
+  set t_Co=8
+  set t_AF=[1;3%p1%dm
+  set t_AB=[4%p1%dm
+else
+  set t_Co=256
+endif
+
+syntax on
+colo slate
+
+" mouse mode
+set mouse=a
+
+" indent settings
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
+set expandtab
+
+" misc
+set nocompatible
+set wildmenu
+set backupdir=~/tmp,/var/tmp/vi.recover,/tmp
+set directory=.,/tmp/.backup,/var/tmp/vi.recover
+set undodir=.undo,~/.undo
+set backup
+
+set showmatch
+set incsearch
+set nohlsearch
+set foldmethod=marker
+set foldlevel=1
+
+if !empty(globpath(&rtp, '/autoload/plug.vim'))
+call plug#begin('~/.vim/plugged')
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+
+Plug 'ray851107/vim-agda-async'
+call plug#end()
+endif
+
+" shortcuts
+:map <leader>l  :set number!<CR>
+
+" airline
+set laststatus=2
+let g:airline_powerline_fonts=1
+let g:airline_theme='bubblegum'
+let g:airline_section_z='%3p%%%#__accent_bold#%{g:airline_symbols.maxlinenr}%3l%#__restore__#%#__accent_bold#/%3L:%#__restore__#%3v'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
+if exists('g:loaded_plug')
+  call airline#parts#define('hunks', {'raw': '', 'minwidth': 72})
+  au VimEnter * :AirlineRefresh
+endif
+
+" theme overrides
+hi LineNr ctermfg=DarkGray
+hi! link SignColumn LineNr
+hi GitGutterAdd    ctermfg=2
+hi GitGutterChange ctermfg=3
+hi GitGutterDelete ctermfg=1
+hi SignColumn guibg=NONE ctermbg=NONE
+hi FoldColumn ctermbg=235
+
