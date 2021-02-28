@@ -7,8 +7,19 @@ else
   set t_Co=256
 endif
 
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" initial highlighting
 syntax on
-colo slate
+" - current line number; cursorlineopt is avail in v8.2+
+try
+  set cursorlineopt=line
+catch
+  hi clear CursorLine
+endtry
+hi CursorLineNR ctermfg=white
 
 " mouse mode
 set mouse=a
@@ -19,14 +30,16 @@ set shiftwidth=4
 set autoindent
 set smartindent
 set expandtab
+set cursorline
 
 " misc
 set nocompatible
 set wildmenu
+set backup
 set backupdir=~/tmp,/var/tmp/vi.recover,/tmp
 set directory=.,/tmp/.backup,/var/tmp/vi.recover
-set undodir=.undo,~/.undo
-set backup
+set undofile
+set undodir=.undo,~/.vim/.undo
 
 set showmatch
 set incsearch
@@ -36,36 +49,67 @@ set foldlevel=1
 
 if !empty(globpath(&rtp, '/autoload/plug.vim'))
 call plug#begin('~/.vim/plugged')
+
+
+" airline  ==================================================================
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+set laststatus=2
+let g:airline_powerline_fonts=1
+"let g:airline_theme='bubblegum'
+"let g:airline_skip_empty_sections=1
+let g:airline_section_z='%3p%%%#__accent_bold#%{g:airline_symbols.maxlinenr}%3l%#__restore__#%#__accent_bold#/%3L:%#__restore__#%3v'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline#extensions#whitespace#checks =
+  \ [ 'indent', 'mixed-indent-file', 'conflicts' ]
+
+
+"  - nord-vim  ==============================================================
+Plug 'arcticicestudio/nord-vim'
+let g:airline_theme='nord'
+let g:nord_uniform_diff_background=1
+let g:nord_uniform_status_lines=1
+
+" gitgutter  ================================================================
 Plug 'airblade/vim-gitgutter'
+hi! link SignColumn LineNr
+hi GitGutterAdd    ctermfg=2
+hi GitGutterChange ctermfg=3
+hi GitGutterDelete ctermfg=1
+
+" nerdtree  =================================================================
+Plug 'preservim/nerdtree'
+" Toggle directory tree window
+function _toggle_nerd_tree()
+        if exists("g:nerdtree_initial_call")
+                :NERDTreeTabsToggle
+        else
+                let g:nerdtree_initial_call = 1
+                :NERDTreeFind
+        endif
+endfunction
+nmap <F5> :call _toggle_nerd_tree()<CR>
+" map <F5> <plug>NERDTreeTabsToggle<CR>
 
 Plug 'ray851107/vim-agda-async'
 call plug#end()
 endif
 
+" theme-specific
+colo nord
+
 " shortcuts
 :map <leader>l  :set number!<CR>
 
-" airline
-set laststatus=2
-let g:airline_powerline_fonts=1
-let g:airline_theme='bubblegum'
-let g:airline_section_z='%3p%%%#__accent_bold#%{g:airline_symbols.maxlinenr}%3l%#__restore__#%#__accent_bold#/%3L:%#__restore__#%3v'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+" theme overrides
+hi LineNr ctermfg=DarkGray
+" - vimdiff
+hi SignColumn guibg=NONE ctermbg=NONE
+hi FoldColumn ctermbg=235
 
+" patches
 if exists('g:loaded_plug')
   call airline#parts#define('hunks', {'raw': '', 'minwidth': 72})
   au VimEnter * :AirlineRefresh
 endif
-
-" theme overrides
-hi LineNr ctermfg=DarkGray
-hi! link SignColumn LineNr
-hi GitGutterAdd    ctermfg=2
-hi GitGutterChange ctermfg=3
-hi GitGutterDelete ctermfg=1
-hi SignColumn guibg=NONE ctermbg=NONE
-hi FoldColumn ctermbg=235
-
