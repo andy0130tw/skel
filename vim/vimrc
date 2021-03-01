@@ -8,6 +8,8 @@ else
 endif
 
 if (has("termguicolors"))
+  set t_8f=[38;2;%lu;%lu;%lum
+  set t_8b=[48;2;%lu;%lu;%lum
   set termguicolors
 endif
 
@@ -93,11 +95,17 @@ nmap <F5> :call _toggle_nerd_tree()<CR>
 " map <F5> <plug>NERDTreeTabsToggle<CR>
 
 Plug 'ray851107/vim-agda-async'
+Plug 'vim-scripts/CycleColor'
 call plug#end()
 endif
 
 " theme-specific
-colo nord
+try
+  colo nord
+catch
+  " fallback to a built-in scheme
+  colo desert
+endtry
 
 " shortcuts
 :map <leader>l  :set number!<CR>
