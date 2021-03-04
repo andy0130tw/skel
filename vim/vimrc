@@ -102,6 +102,8 @@ endif
 " theme-specific
 try
   colo nord
+  " Revert background change; that way the terminal may stay semi-transparent
+  :hi Normal guibg=NONE ctermbg=NONE
 catch
   " fallback to a built-in scheme
   colo desert
@@ -117,7 +119,7 @@ hi SignColumn guibg=NONE ctermbg=NONE
 hi FoldColumn ctermbg=235
 
 " patches
-if !empty(globpath(&rtp, '/autoload/airline')) 
+if !empty(globpath(&rtp, '/autoload/airline'))
   call airline#parts#define('hunks', {'raw': '', 'minwidth': 72})
   au VimEnter * :AirlineRefresh
 endif
