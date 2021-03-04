@@ -117,7 +117,7 @@ hi SignColumn guibg=NONE ctermbg=NONE
 hi FoldColumn ctermbg=235
 
 " patches
-if exists('g:loaded_plug')
+if !empty(globpath(&rtp, '/autoload/airline')) 
   call airline#parts#define('hunks', {'raw': '', 'minwidth': 72})
   au VimEnter * :AirlineRefresh
 endif
