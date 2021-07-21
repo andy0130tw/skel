@@ -85,7 +85,7 @@ Plug 'preservim/nerdtree'
 " Toggle directory tree window
 function _toggle_nerd_tree()
         if exists("g:nerdtree_initial_call")
-                :NERDTreeTabsToggle
+                :NERDTreeToggle
         else
                 let g:nerdtree_initial_call = 1
                 :NERDTreeFind
