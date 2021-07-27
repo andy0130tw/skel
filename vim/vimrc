@@ -102,11 +102,13 @@ endif
 " theme-specific
 try
   colo nord
-  " Revert background change; that way the terminal may stay semi-transparent
-  :hi Normal guibg=NONE ctermbg=NONE
 catch
   " fallback to a built-in scheme
   colo desert
+  :hi NonText guibg=NONE ctermbg=NONE
+finally
+  " Revert background change; that way the terminal may stay semi-transparent
+  :hi Normal guibg=NONE ctermbg=NONE
 endtry
 
 " shortcuts
