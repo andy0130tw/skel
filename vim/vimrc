@@ -94,6 +94,10 @@ endfunction
 nmap <F5> :call _toggle_nerd_tree()<CR>
 " map <F5> <plug>NERDTreeTabsToggle<CR>
 
+
+" vim-javascript  ===========================================================
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+
 Plug 'ray851107/vim-agda-async'
 Plug 'vim-scripts/CycleColor'
 call plug#end()
@@ -113,6 +117,7 @@ endtry
 
 " shortcuts
 :map <leader>l  :set number!<CR>
+:map <leader>p  :set paste!<CR>
 
 " theme overrides
 hi LineNr ctermfg=DarkGray
@@ -125,3 +130,9 @@ if !empty(globpath(&rtp, '/autoload/airline'))
   call airline#parts#define('hunks', {'raw': '', 'minwidth': 72})
   au VimEnter * :AirlineRefresh
 endif
+
+" https://stackoverflow.com/a/14449484/2281355; CC BY-SA 3.0
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
