@@ -38,7 +38,7 @@ set cursorline
 set nocompatible
 set wildmenu
 set backup
-set backupdir=~/tmp,/var/tmp/vi.recover,/tmp
+set backupdir=~/.vim/tmp,/var/tmp/vi.recover,/tmp
 set directory=.,/tmp/.backup,/var/tmp/vi.recover
 set undofile
 set undodir=.undo,~/.vim/.undo
@@ -59,8 +59,8 @@ Plug 'vim-airline/vim-airline-themes'
 set laststatus=2
 let g:airline_powerline_fonts=1
 "let g:airline_theme='bubblegum'
-"let g:airline_skip_empty_sections=1
-let g:airline_section_z='%3p%%%#__accent_bold#%{g:airline_symbols.maxlinenr}%3l%#__restore__#%#__accent_bold#/%3L:%#__restore__#%3v'
+let g:airline_skip_empty_sections=1
+let g:airline_section_z='%2p%%%#__accent_bold#%{g:airline_symbols.maxlinenr}%3l%#__restore__#%#__accent_bold#/%3L:%#__restore__#%3v'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline#extensions#whitespace#checks =
