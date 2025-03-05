@@ -15,3 +15,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 ## tmux
 
 Tested version: 2.6, 3.0a
+
+## git
+
+Tested version: 2.35
+
+Includes [delta](https://dandavison.github.io/delta/)-related config in comments
+

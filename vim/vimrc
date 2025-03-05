@@ -46,8 +46,15 @@ set undodir=.undo,~/.vim/.undo
 set showmatch
 set incsearch
 set nohlsearch
+
+" folding
 set foldmethod=marker
 set foldlevel=1
+
+" for start up speed: https://stackoverflow.com/a/72231901
+set regexpengine=0
+" https://vi.stackexchange.com/a/2163
+set backspace=indent,eol,start
 
 if !empty(globpath(&rtp, '/autoload/plug.vim'))
 call plug#begin('~/.vim/plugged')
@@ -100,6 +107,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 Plug 'ray851107/vim-agda-async'
 Plug 'vim-scripts/CycleColor'
+Plug 'mbbill/undotree'
 call plug#end()
 endif
 
@@ -118,6 +126,7 @@ endtry
 " shortcuts
 :map <leader>l  :set number!<CR>
 :map <leader>p  :set paste!<CR>
+noremap <F6> :UndotreeToggle<CR>
 
 " theme overrides
 hi LineNr ctermfg=DarkGray
